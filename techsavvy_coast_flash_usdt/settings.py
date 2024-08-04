@@ -25,8 +25,16 @@ SECRET_KEY = 'django-insecure-(4-d3w95p*&zkg7b!at6xv1-6cge3u@so+0r7vf^td2mjq(2$4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+import os
+
+# Tron configuration
+TRON_NETWORK = 'nile'
+TRON_USDT_CONTRACT_ADDRESS = os.getenv('TRON_USDT_CONTRACT_ADDRESS', '...')
+
+# Web3 configuration for Ethereum and Binance Smart Chain
+WEB3_PROVIDER_URI = os.getenv('WEB3_PROVIDER_URI', '...')
 
 # Application definition
 
@@ -37,6 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
+    'transactions',
+    'blockchain',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +65,7 @@ ROOT_URLCONF = 'techsavvy_coast_flash_usdt.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -115,7 +126,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

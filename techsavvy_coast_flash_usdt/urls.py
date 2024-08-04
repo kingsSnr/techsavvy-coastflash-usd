@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from transactions import views as transaction_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('transactions/create/', transaction_views.create_flash_transaction, name='create_flash_transaction'),
 ]
+
